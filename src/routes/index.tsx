@@ -27,9 +27,25 @@ export const Route = createFileRoute("/")({
           "Chagua mtu wa kuzungumza naye, badilishana lugha na utamaduni, kisha fuata maelekezo ya DreamChat kuanza.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://dreamvorasite.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://dreamvorasite.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "DreamChat — Orodha ya Watu wa Kuchat Nao",
+          url: "https://dreamvorasite.lovable.app/",
+          inLanguage: "sw-TZ",
+          about: "Watu wanaopatikana kwa mazungumzo kwenye DreamChat",
+        }),
+      },
+    ],
   }),
+
   component: Index,
 });
 

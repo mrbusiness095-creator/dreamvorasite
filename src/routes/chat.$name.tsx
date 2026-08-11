@@ -22,9 +22,36 @@ export const Route = createFileRoute("/chat/$name")({
         content: `Jisajili DreamChat ili kuendelea na mazungumzo na ${params.name}.`,
       },
       { property: "og:type", content: "profile" },
+      {
+        property: "og:url",
+        content: `https://dreamvorasite.lovable.app/chat/${encodeURIComponent(params.name)}`,
+      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://dreamvorasite.lovable.app/chat/${encodeURIComponent(params.name)}`,
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          url: `https://dreamvorasite.lovable.app/chat/${encodeURIComponent(params.name)}`,
+          inLanguage: "sw-TZ",
+          mainEntity: {
+            "@type": "Person",
+            name: params.name,
+            image: `https://i.pravatar.cc/150?img=${findPerson(params.name)?.img ?? 1}`,
+          },
+        }),
+      },
+    ],
   }),
+
   loader: ({ params }) => {
     const person = findPerson(params.name);
     if (!person) throw notFound();
