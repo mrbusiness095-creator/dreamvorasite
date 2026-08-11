@@ -60,86 +60,209 @@ export const Route = createFileRoute("/chat/$name")({
   component: ChatPage,
 });
 
+type Msg = { from: "them" | "me"; text: string };
+
+const SCRIPT: Array<{ ask: string; hint: string; reply: string }> = [
+  {
+    ask: "Hi! I'm learning Swahili 😊 How can you say THANK YOU?",
+    hint: "ASANTE",
+    reply: "Oh, ASANTE! That's nice 😍 I'll use it today.",
+  },
+  {
+    ask: "Nice! And how do I say GOOD MORNING?",
+    hint: "HABARI YA ASUBUHI",
+    reply: "HABARI YA ASUBUHI 🌞 Wow, Swahili sounds beautiful!",
+  },
+  {
+    ask: "Last one for now — how can I say I LOVE YOUR COUNTRY?",
+    hint: "NAIPENDA NCHI YAKO",
+    reply: "NAIPENDA NCHI YAKO ❤️ You're a great teacher, let's keep chatting!",
+  },
+];
+
 function ChatPage() {
   const p = Route.useLoaderData()!;
+  const [messages, setMessages] = useState<Msg[]>([
+    { from: "them", text: SCRIPT[0].ask },
+  ]);
+  const [input, setInput] = useState("");
+  const [step, setStep] = useState(0);
+  const [typing, setTyping] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const endRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, typing]);
+
+  const send = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = input.trim();
+    if (!text || step >= SCRIPT.length || typing) return;
+    const current = step;
+    setInput("");
+    setMessages((m) => [...m, { from: "me", text }]);
+    setTyping(true);
+    setTimeout(() => {
+      setTyping(false);
+      setMessages((m) => [...m, { from: "them", text: SCRIPT[current].reply }]);
+      const next = current + 1;
+      setStep(next);
+      if (next < SCRIPT.length) {
+        setTimeout(() => {
+          setMessages((m) => [...m, { from: "them", text: SCRIPT[next].ask }]);
+        }, 900);
+      } else {
+        setTimeout(() => setShowPopup(true), 1200);
+      }
+    }, 1200);
+  };
+
+  const done = step >= SCRIPT.length;
 
   return (
     <div className="flex min-h-screen flex-col bg-background font-sans">
       <header className="border-b-4 border-gold bg-header px-4 py-3">
-        <div className="mx-auto max-w-3xl font-display text-xl font-extrabold">
-          <span className="text-brand">Dream</span>
-          <span className="text-foreground">Chat</span>
-        </div>
-      </header>
-
-      <main className="mx-auto w-full max-w-lg flex-1 px-4 py-10">
-        <div className="rounded-3xl bg-card p-6 text-center shadow-xl shadow-foreground/10">
+        <div className="mx-auto flex max-w-3xl items-center gap-3">
           <img
             src={`https://i.pravatar.cc/150?img=${p.img}`}
             alt={`Picha ya ${p.name}`}
-            className="mx-auto h-24 w-24 rounded-full border-4 border-gold object-cover"
+            className="h-10 w-10 rounded-full border-2 border-gold object-cover"
           />
-          <h1 className="mt-4 font-display text-2xl font-extrabold">
-            {p.name} {p.emoji}
-          </h1>
-
-          <div className="mt-6 rounded-2xl bg-accent/60 p-4 text-left">
-            <p className="text-sm font-bold">📍 Malipo</p>
-            <p className="text-sm text-muted-foreground">
-              📍 Unapata kwa kuchat na {p.name}
-            </p>
-            <p className="mt-2 font-display text-3xl font-extrabold text-price">
+          <div>
+            <h1 className="font-display text-base font-extrabold text-foreground">
+              {p.name} {p.emoji}
+            </h1>
+            <p className="text-xs text-success">● Online sasa</p>
+          </div>
+          <div className="ml-auto text-right">
+            <p className="font-display text-sm font-extrabold text-price">
               TZS {fmtTZS(tzsFor(p.minutes))}
             </p>
-            <p className="mt-1 text-sm">Muda: {p.minutes} dakika</p>
-            <p className="mt-3 text-sm">
-              {p.name} anataka: <strong>{p.wants}</strong>
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Ukichat naye kwa muda uliopangwa, utalipwa kiasi hicho.
+            <p className="text-[11px] text-muted-foreground">
+              {p.minutes} dakika
             </p>
           </div>
-
-          <div className="mt-6 grid gap-3">
-            <a
-              href={REGISTER_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-success px-5 py-3 text-sm font-bold text-success-foreground"
-            >
-              📝 Jisajili Ili Kuendelea
-            </a>
-            <a
-              href={CHANNEL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-gold px-5 py-3 text-sm font-bold text-gold-foreground"
-            >
-              📢 Jiunge na Channel
-            </a>
-            <Link
-              to="/"
-              className="rounded-full border border-border px-5 py-3 text-sm font-bold"
-            >
-              🔙 Rudi Nyumbani
-            </Link>
-          </div>
-
-          <p className="mt-5 text-xs text-muted-foreground">
-            * Unahitaji kujisajili ili kuendelea na mazungumzo
-          </p>
         </div>
+      </header>
+
+      <main className="mx-auto flex w-full max-w-lg flex-1 flex-col px-3 py-4">
+        <div className="flex-1 space-y-3">
+          <p className="mx-auto w-fit rounded-full bg-accent/60 px-3 py-1 text-center text-[11px] text-muted-foreground">
+            {p.name} anataka: {p.wants}
+          </p>
+
+          {messages.map((m, i) => (
+            <div
+              key={i}
+              className={`flex ${m.from === "me" ? "justify-end" : "justify-start"}`}
+            >
+              <div
+                className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
+                  m.from === "me"
+                    ? "rounded-br-sm bg-success text-success-foreground"
+                    : "rounded-bl-sm bg-card text-foreground"
+                }`}
+              >
+                {m.text}
+              </div>
+            </div>
+          ))}
+
+          {typing && (
+            <div className="flex justify-start">
+              <div className="rounded-2xl rounded-bl-sm bg-card px-4 py-2 text-sm text-muted-foreground">
+                {p.name} anaandika…
+              </div>
+            </div>
+          )}
+          <div ref={endRef} />
+        </div>
+
+        {!done && (
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            💡 Jibu: <strong>{SCRIPT[step].hint}</strong>
+          </p>
+        )}
+
+        <form onSubmit={send} className="sticky bottom-3 mt-3 flex gap-2">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={done}
+            placeholder={done ? "Jisajili ili kuendelea…" : "Andika jibu lako…"}
+            className="flex-1 rounded-full border border-border bg-card px-4 py-3 text-sm outline-none focus:border-gold disabled:opacity-60"
+          />
+          <button
+            type="submit"
+            disabled={done || typing}
+            className="rounded-full bg-brand px-5 py-3 text-sm font-bold text-primary-foreground disabled:opacity-50"
+          >
+            Tuma
+          </button>
+        </form>
+
+        <Link
+          to="/"
+          className="mt-3 rounded-full border border-border px-5 py-2 text-center text-sm font-bold"
+        >
+          🔙 Rudi Nyumbani
+        </Link>
       </main>
+
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/60 px-5">
+          <div className="w-full max-w-sm rounded-3xl bg-card p-6 text-center shadow-2xl">
+            <img
+              src={`https://i.pravatar.cc/150?img=${p.img}`}
+              alt={`Picha ya ${p.name}`}
+              className="mx-auto h-20 w-20 rounded-full border-4 border-gold object-cover"
+            />
+            <h2 className="mt-4 font-display text-xl font-extrabold">
+              JISAJILI KUENDELEA KUCHAT NA KULIPWA
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Umemaliza chat 3 za bure na {p.name}. Jisajili sasa ili kuendelea
+              na kulipwa <strong>TZS {fmtTZS(tzsFor(p.minutes))}</strong>.
+            </p>
+            <div className="mt-5 grid gap-3">
+              <a
+                href={REGISTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-success px-5 py-3 text-sm font-bold text-success-foreground"
+              >
+                📝 Jisajili Ili Kuendelea
+              </a>
+              <a
+                href={CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-gold px-5 py-3 text-sm font-bold text-gold-foreground"
+              >
+                📢 Jiunge na Channel
+              </a>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="rounded-full border border-border px-5 py-2 text-sm font-bold"
+              >
+                Funga
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <a
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Wasiliana nasi WhatsApp"
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-success text-2xl text-success-foreground shadow-xl blink-ring transition-transform duration-200 hover:scale-110"
+        className="fixed bottom-24 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-success text-2xl text-success-foreground shadow-xl blink-ring transition-transform duration-200 hover:scale-110"
       >
         💬
       </a>
     </div>
   );
 }
+
