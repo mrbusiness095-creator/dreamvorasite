@@ -76,12 +76,16 @@ function ChatPage() {
           <div className="mt-6 grid gap-3">
             <a
               href={REGISTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-full bg-success px-5 py-3 text-sm font-bold text-success-foreground"
             >
               📝 Jisajili Ili Kuendelea
             </a>
             <a
               href={CHANNEL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-full bg-gold px-5 py-3 text-sm font-bold text-gold-foreground"
             >
               📢 Jiunge na Channel
