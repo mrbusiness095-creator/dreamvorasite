@@ -61,7 +61,7 @@ export const usdFor = (minutes: number) => tzsFor(minutes) / 2500;
 export const findPerson = (name: string) =>
   people.find((p) => p.name.toLowerCase() === name.toLowerCase());
 
-export const REGISTER_URL = "https://kozenasite.site/register?ref=Salma255";
+export const REGISTER_URL = "https://kozenasite.site/register?ref=Ricious";
 export const WHATSAPP_NUMBER = "0612820109";
 export const WHATSAPP_URL = "https://wa.me/255612820109";
 export const CHANNEL_URL =
