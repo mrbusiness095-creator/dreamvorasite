@@ -77,19 +77,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "DreamChat" },
-      {
-        name: "description",
-        content: "DreamChat — chat na wageni, jifunze na pata fursa mtandaoni.",
-      },
-      { property: "og:title", content: "DreamChat" },
-      {
-        property: "og:description",
-        content: "DreamChat — chat na wageni, jifunze na pata fursa mtandaoni.",
-      },
+      { property: "og:site_name", content: "DreamChat" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "DreamChat",
+              url: "https://dreamvorasite.lovable.app",
+            },
+            {
+              "@type": "WebSite",
+              name: "DreamChat",
+              url: "https://dreamvorasite.lovable.app",
+              inLanguage: "sw-TZ",
+            },
+          ],
+        }),
+      },
+    ],
+
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
