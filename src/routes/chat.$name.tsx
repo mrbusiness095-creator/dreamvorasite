@@ -102,8 +102,10 @@ function ChatPage() {
 
       <a
         href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Wasiliana nasi WhatsApp"
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-success text-2xl text-success-foreground shadow-xl"
+        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-success text-2xl text-success-foreground shadow-xl blink-ring transition-transform duration-200 hover:scale-110"
       >
         💬
       </a>
