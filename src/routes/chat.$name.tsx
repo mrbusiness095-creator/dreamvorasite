@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   findPerson,
@@ -83,7 +84,7 @@ const SCRIPT: Array<{ ask: string; hint: string; reply: string }> = [
 function ChatPage() {
   const p = Route.useLoaderData()!;
   const [messages, setMessages] = useState<Msg[]>([
-    { from: "them", text: SCRIPT[0].ask },
+    { from: "them", text: SCRIPT[0]!.ask },
   ]);
   const [input, setInput] = useState("");
   const [step, setStep] = useState(0);
@@ -105,12 +106,12 @@ function ChatPage() {
     setTyping(true);
     setTimeout(() => {
       setTyping(false);
-      setMessages((m) => [...m, { from: "them", text: SCRIPT[current].reply }]);
+      setMessages((m) => [...m, { from: "them", text: SCRIPT[current]!.reply }]);
       const next = current + 1;
       setStep(next);
       if (next < SCRIPT.length) {
         setTimeout(() => {
-          setMessages((m) => [...m, { from: "them", text: SCRIPT[next].ask }]);
+          setMessages((m) => [...m, { from: "them", text: SCRIPT[next]!.ask }]);
         }, 900);
       } else {
         setTimeout(() => setShowPopup(true), 1200);
@@ -181,7 +182,7 @@ function ChatPage() {
 
         {!done && (
           <p className="mt-3 text-center text-xs text-muted-foreground">
-            💡 Jibu: <strong>{SCRIPT[step].hint}</strong>
+            💡 Jibu: <strong>{SCRIPT[step]!.hint}</strong>
           </p>
         )}
 
