@@ -61,6 +61,8 @@ function Index() {
           <div className="flex items-center gap-2">
             <a
               href={REGISTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-lg bg-success px-3 py-2 text-xs font-bold text-success-foreground shadow-sm"
             >
               💰 Withdraw
@@ -173,12 +175,16 @@ function Index() {
         <div className="mt-5 flex flex-wrap justify-center gap-3">
           <a
             href={CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full bg-success px-5 py-2.5 text-sm font-bold text-success-foreground"
           >
             📢 Jiunge na Channel
           </a>
           <a
             href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full bg-gold px-5 py-2.5 text-sm font-bold text-gold-foreground"
           >
             💬 WhatsApp {WHATSAPP_NUMBER}
@@ -191,8 +197,10 @@ function Index() {
 
       <a
         href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Wasiliana nasi WhatsApp"
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-success text-2xl text-success-foreground shadow-xl"
+        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-success text-2xl text-success-foreground shadow-xl blink-ring transition-transform duration-200 hover:scale-110"
       >
         💬
       </a>
