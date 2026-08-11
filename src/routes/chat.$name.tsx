@@ -34,7 +34,7 @@ export const Route = createFileRoute("/chat/$name")({
 });
 
 function ChatPage() {
-  const p = Route.useLoaderData();
+  const p = Route.useLoaderData()!;
 
   return (
     <div className="flex min-h-screen flex-col bg-background font-sans">
