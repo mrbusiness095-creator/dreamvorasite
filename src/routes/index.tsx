@@ -30,10 +30,12 @@ export const Route = createFileRoute("/")({
           "Chagua mtu wa kuzungumza naye, badilishana lugha na utamaduni, kisha fuata maelekezo ya DreamChat kuanza.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dreamvorasite.lovable.app/" },
+      { property: "og:url", content: "https://dreamchats.lovable.app/" },
+      { property: "og:image", content: LOGO_URL },
+      { name: "twitter:image", content: LOGO_URL },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://dreamvorasite.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://dreamchats.lovable.app/" }],
     scripts: [
       {
         type: "application/ld+json",
