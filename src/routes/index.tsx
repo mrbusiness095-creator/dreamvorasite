@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import logoAsset from "@/assets/dreamchats-logo.png.asset.json";
 import {
   people,
   tzsFor,
@@ -10,6 +11,8 @@ import {
   WHATSAPP_URL,
   WHATSAPP_NUMBER,
 } from "@/lib/people";
+
+const LOGO_URL = `https://dreamchats.lovable.app${logoAsset.url}`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
