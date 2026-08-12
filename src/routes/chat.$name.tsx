@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { scriptFor } from "@/lib/chat-scripts";
+import logoAsset from "@/assets/dreamchats-logo.png.asset.json";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   findPerson,
@@ -9,6 +10,8 @@ import {
   WHATSAPP_URL,
   CHANNEL_URL,
 } from "@/lib/people";
+
+const LOGO_URL = `https://dreamchats.lovable.app${logoAsset.url}`;
 
 export const Route = createFileRoute("/chat/$name")({
   head: ({ params }) => ({
@@ -28,6 +31,8 @@ export const Route = createFileRoute("/chat/$name")({
         property: "og:url",
         content: `https://dreamvorasite.lovable.app/chat/${encodeURIComponent(params.name)}`,
       },
+      { property: "og:image", content: LOGO_URL },
+      { name: "twitter:image", content: LOGO_URL },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

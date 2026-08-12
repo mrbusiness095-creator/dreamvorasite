@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import logoAsset from "@/assets/dreamchats-logo.png.asset.json";
 import {
   people,
   tzsFor,
@@ -10,6 +11,8 @@ import {
   WHATSAPP_URL,
   WHATSAPP_NUMBER,
 } from "@/lib/people";
+
+const LOGO_URL = `https://dreamchats.lovable.app${logoAsset.url}`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,10 +30,12 @@ export const Route = createFileRoute("/")({
           "Chagua mtu wa kuzungumza naye, badilishana lugha na utamaduni, kisha fuata maelekezo ya DreamChat kuanza.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://dreamvorasite.lovable.app/" },
+      { property: "og:url", content: "https://dreamchats.lovable.app/" },
+      { property: "og:image", content: LOGO_URL },
+      { name: "twitter:image", content: LOGO_URL },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://dreamvorasite.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://dreamchats.lovable.app/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -64,12 +69,19 @@ function Index() {
       {/* Header */}
       <header className="sticky top-0 z-30 border-b-4 border-gold bg-header text-header-foreground">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-          <div>
-            <div className="font-display text-xl font-extrabold leading-none">
-              <span className="text-brand">Dream</span>
-              <span className="text-foreground">Chat</span>
+          <div className="flex items-center gap-2">
+            <img
+              src={logoAsset.url}
+              alt="Nembo ya DreamChat"
+              className="h-10 w-10 rounded-full object-contain"
+            />
+            <div>
+              <div className="font-display text-xl font-extrabold leading-none">
+                <span className="text-brand">Dream</span>
+                <span className="text-foreground">Chat</span>
+              </div>
+              <p className="mt-1 text-[11px] text-muted-foreground">Connect, Learn, Earn</p>
             </div>
-            <p className="mt-1 text-[11px] text-muted-foreground">Connect, Learn, Earn</p>
           </div>
           <span className="hidden rounded-full bg-muted px-3 py-1 text-xs font-semibold text-success sm:inline-block">
             ● 2,535 live
