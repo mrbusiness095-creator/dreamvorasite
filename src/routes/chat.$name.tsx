@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { scriptFor } from "@/lib/chat-scripts";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   findPerson,
@@ -63,26 +64,9 @@ export const Route = createFileRoute("/chat/$name")({
 
 type Msg = { from: "them" | "me"; text: string };
 
-const SCRIPT: Array<{ ask: string; hint: string; reply: string }> = [
-  {
-    ask: "Hi! I'm learning Swahili 😊 How can you say THANK YOU?",
-    hint: "ASANTE",
-    reply: "Oh, ASANTE! That's nice 😍 I'll use it today.",
-  },
-  {
-    ask: "Nice! And how do I say GOOD MORNING?",
-    hint: "HABARI YA ASUBUHI",
-    reply: "HABARI YA ASUBUHI 🌞 Wow, Swahili sounds beautiful!",
-  },
-  {
-    ask: "Last one for now — how can I say I LOVE YOUR COUNTRY?",
-    hint: "NAIPENDA NCHI YAKO",
-    reply: "NAIPENDA NCHI YAKO ❤️ You're a great teacher, let's keep chatting!",
-  },
-];
-
 function ChatPage() {
   const p = Route.useLoaderData()!;
+  const SCRIPT = useMemo(() => scriptFor(p.name), [p.name]);
   const [messages, setMessages] = useState<Msg[]>([
     { from: "them", text: SCRIPT[0]!.ask },
   ]);
