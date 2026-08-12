@@ -69,12 +69,19 @@ function Index() {
       {/* Header */}
       <header className="sticky top-0 z-30 border-b-4 border-gold bg-header text-header-foreground">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-          <div>
-            <div className="font-display text-xl font-extrabold leading-none">
-              <span className="text-brand">Dream</span>
-              <span className="text-foreground">Chat</span>
+          <div className="flex items-center gap-2">
+            <img
+              src={logoAsset.url}
+              alt="Nembo ya DreamChat"
+              className="h-10 w-10 rounded-full object-contain"
+            />
+            <div>
+              <div className="font-display text-xl font-extrabold leading-none">
+                <span className="text-brand">Dream</span>
+                <span className="text-foreground">Chat</span>
+              </div>
+              <p className="mt-1 text-[11px] text-muted-foreground">Connect, Learn, Earn</p>
             </div>
-            <p className="mt-1 text-[11px] text-muted-foreground">Connect, Learn, Earn</p>
           </div>
           <span className="hidden rounded-full bg-muted px-3 py-1 text-xs font-semibold text-success sm:inline-block">
             ● 2,535 live
