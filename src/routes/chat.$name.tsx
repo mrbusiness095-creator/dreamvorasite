@@ -31,6 +31,8 @@ export const Route = createFileRoute("/chat/$name")({
         property: "og:url",
         content: `https://dreamvorasite.lovable.app/chat/${encodeURIComponent(params.name)}`,
       },
+      { property: "og:image", content: LOGO_URL },
+      { name: "twitter:image", content: LOGO_URL },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
