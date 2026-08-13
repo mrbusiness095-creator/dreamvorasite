@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import logoAsset from "@/assets/dreamchats-logo.png.asset.json";
 import {
   people,
   tzsFor,

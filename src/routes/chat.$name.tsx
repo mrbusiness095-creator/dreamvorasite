@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { scriptFor } from "@/lib/chat-scripts";
-import logoAsset from "@/assets/dreamchats-logo.png.asset.json";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   findPerson,
