@@ -3,6 +3,7 @@ import { scriptFor } from "@/lib/chat-scripts";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   findPerson,
+  type Person,
   tzsFor,
   fmtTZS,
   REGISTER_URL,
@@ -69,7 +70,7 @@ export const Route = createFileRoute("/chat/$name")({
 type Msg = { from: "them" | "me"; text: string };
 
 function ChatPage() {
-  const p = Route.useLoaderData()!;
+  const p = Route.useLoaderData() as unknown as Person;
   const SCRIPT = useMemo(() => scriptFor(p.name), [p.name]);
   const [messages, setMessages] = useState<Msg[]>([
     { from: "them", text: SCRIPT[0]!.ask },
