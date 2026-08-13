@@ -11,7 +11,7 @@ import {
   CHANNEL_URL,
 } from "@/lib/people";
 
-const LOGO_URL = `https://dreamchats.lovable.app${logoAsset.url}`;
+const LOGO_URL = "https://dreamchats.lovable.app/og-image.png";
 
 export const Route = createFileRoute("/chat/$name")({
   head: ({ params }) => ({

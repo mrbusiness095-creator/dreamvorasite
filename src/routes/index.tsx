@@ -12,7 +12,7 @@ import {
   WHATSAPP_NUMBER,
 } from "@/lib/people";
 
-const LOGO_URL = `https://dreamchats.lovable.app${logoAsset.url}`;
+const LOGO_URL = "https://dreamchats.lovable.app/og-image.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
