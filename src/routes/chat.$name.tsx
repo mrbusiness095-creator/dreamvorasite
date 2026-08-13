@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { scriptFor } from "@/lib/chat-scripts";
-import logoAsset from "@/assets/dreamchats-logo.png.asset.json";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   findPerson,
+  type Person,
   tzsFor,
   fmtTZS,
   REGISTER_URL,
@@ -11,7 +11,7 @@ import {
   CHANNEL_URL,
 } from "@/lib/people";
 
-const LOGO_URL = `https://dreamchats.lovable.app${logoAsset.url}`;
+const LOGO_URL = "https://dreamchats.lovable.app/og-image.png";
 
 export const Route = createFileRoute("/chat/$name")({
   head: ({ params }) => ({
@@ -70,7 +70,7 @@ export const Route = createFileRoute("/chat/$name")({
 type Msg = { from: "them" | "me"; text: string };
 
 function ChatPage() {
-  const p = Route.useLoaderData()!;
+  const p = Route.useLoaderData() as unknown as Person;
   const SCRIPT = useMemo(() => scriptFor(p.name), [p.name]);
   const [messages, setMessages] = useState<Msg[]>([
     { from: "them", text: SCRIPT[0]!.ask },
