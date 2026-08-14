@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { people } from "@/lib/people";
 
-const BASE_URL = "https://dreamvorasite.lovable.app";
+const BASE_URL = "https://dreamchats.lovable.app";
 
 interface SitemapEntry {
   path: string;

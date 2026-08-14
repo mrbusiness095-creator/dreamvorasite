@@ -13,5 +13,5 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://dreamvorasite.lovable.app/sitemap.xml
+Sitemap: https://dreamchats.lovable.app/sitemap.xml
 

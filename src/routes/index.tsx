@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "DreamChat — Orodha ya Watu wa Kuchat Nao",
-          url: "https://dreamvorasite.lovable.app/",
+          url: "https://dreamchats.lovable.app/",
           inLanguage: "sw-TZ",
           about: "Watu wanaopatikana kwa mazungumzo kwenye DreamChat",
         }),
