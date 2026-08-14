@@ -91,12 +91,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             {
               "@type": "Organization",
               name: "DreamChat",
-              url: "https://dreamvorasite.lovable.app",
+              url: "https://dreamchats.lovable.app",
+              logo: "https://dreamchats.lovable.app/og-image.png",
             },
             {
               "@type": "WebSite",
               name: "DreamChat",
-              url: "https://dreamvorasite.lovable.app",
+              url: "https://dreamchats.lovable.app",
               inLanguage: "sw-TZ",
             },
           ],

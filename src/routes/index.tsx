@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "DreamChat — Orodha ya Watu wa Kuchat Nao",
-          url: "https://dreamvorasite.lovable.app/",
+          url: "https://dreamchats.lovable.app/",
           inLanguage: "sw-TZ",
           about: "Watu wanaopatikana kwa mazungumzo kwenye DreamChat",
         }),
@@ -107,6 +107,13 @@ function Index() {
 
       {/* Hero */}
       <section className="bg-accent/70 px-4 py-10 text-center">
+        <img
+          src={logoAsset.url}
+          alt="Nembo ya DreamChat — Chat na Wageni, Pata Pesa Online"
+          width={320}
+          height={320}
+          className="mx-auto mb-5 h-28 w-auto object-contain sm:h-36"
+        />
         <h1 className="mx-auto max-w-3xl font-display text-2xl font-extrabold leading-tight sm:text-4xl">
           🌍 DreamChat: Chat na Wageni na Pata Pesa Online Tanzania
         </h1>
