@@ -4,7 +4,7 @@ import { CHANNEL_URL } from "@/lib/people";
 const AGENT_IMAGE = "https://randomuser.me/api/portraits/women/44.jpg";
 const SMS_URL = "sms:0743871339?body=Nielekeze%20kuhusu%20DreamChat";
 
-export default function CustomerService() {
+export default function CustomerService({ placement = "floating" }: { placement?: "floating" | "inline" }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -12,7 +12,11 @@ export default function CustomerService() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Customer service"
-        className="fixed bottom-24 right-5 z-40 flex items-center gap-2 rounded-full border-2 border-gold bg-card px-3 py-2 shadow-xl transition-transform hover:scale-105"
+        className={
+          placement === "inline"
+            ? "relative z-10 ml-auto flex items-center gap-2 rounded-full border-2 border-gold bg-card px-3 py-2 shadow-xl transition-transform hover:scale-105"
+            : "fixed bottom-24 right-5 z-40 flex items-center gap-2 rounded-full border-2 border-gold bg-card px-3 py-2 shadow-xl transition-transform hover:scale-105"
+        }
       >
         <img src={AGENT_IMAGE} alt="Customer service" className="h-10 w-10 rounded-full border-2 border-success object-cover" />
         <span className="text-left text-xs font-extrabold">Customer service</span>

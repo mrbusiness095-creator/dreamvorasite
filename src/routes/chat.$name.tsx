@@ -175,7 +175,11 @@ function ChatPage() {
           </p>
         )}
 
-        <form onSubmit={send} className="sticky bottom-3 mt-3 flex gap-2">
+        <div className="mt-3 flex justify-end">
+          <CustomerService placement="inline" />
+        </div>
+
+        <form onSubmit={send} className="sticky bottom-3 mt-2 flex gap-2">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -243,7 +247,6 @@ function ChatPage() {
         </div>
       )}
 
-      <CustomerService />
     </div>
   );
 }
