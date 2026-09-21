@@ -193,3 +193,20 @@
   }
 }
 
+
+
+@keyframes signup-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 24px rgba(88, 28, 135, 0.20);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 14px 34px rgba(88, 28, 135, 0.34);
+  }
+}
+
+.signup-pulse {
+  animation: signup-pulse 1.25s ease-in-out infinite;
+  transform-origin: center;
+}

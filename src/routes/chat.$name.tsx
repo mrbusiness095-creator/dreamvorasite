@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { scriptFor } from "@/lib/chat-scripts";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import CustomerService from "@/components/CustomerService";
 import {
   findPerson,
   type Person,
   tzsFor,
   fmtTZS,
   REGISTER_URL,
-  WHATSAPP_URL,
   CHANNEL_URL,
 } from "@/lib/people";
 
@@ -243,15 +243,7 @@ function ChatPage() {
         </div>
       )}
 
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Wasiliana nasi WhatsApp"
-        className="fixed bottom-24 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-success text-2xl text-success-foreground shadow-xl blink-ring transition-transform duration-200 hover:scale-110"
-      >
-        💬
-      </a>
+      <CustomerService />
     </div>
   );
 }

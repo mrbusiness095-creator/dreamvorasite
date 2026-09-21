@@ -7,8 +7,6 @@ import {
   fmtTZS,
   CHANNEL_URL,
   REGISTER_URL,
-  WHATSAPP_URL,
-  WHATSAPP_NUMBER,
 } from "@/lib/people";
 import SignupPopup from "@/components/SignupPopup";
 import WithdrawalPopup from "@/components/WithdrawalPopup";
@@ -86,13 +84,18 @@ function Index() {
         <img src={LOGO_URL} alt="Nembo ya DreamChat — Chat na Wageni, Pata Pesa Online" width={320} height={320} className="mx-auto mb-5 h-28 w-auto object-contain sm:h-36" />
         <h1 className="mx-auto max-w-3xl font-display text-2xl font-extrabold leading-tight sm:text-4xl">🌍 DreamChat: Chat na Wageni na Pata Pesa Online Tanzania</h1>
         <p className="mt-3 font-semibold text-gold">Connect, learn and discover online earning opportunities</p>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">Chagua mtu wa kuzungumza naye, badilishana lugha na utamaduni, kisha fuata maelekezo ya DreamChat kuanza.</p>
+        <button
+          onClick={() => setShowSignup(true)}
+          className="signup-pulse mt-5 rounded-full bg-brand px-9 py-3.5 text-sm font-extrabold text-primary-foreground shadow-lg"
+        >
+          JISAJILI SASA
+        </button>
+        <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground">Chagua mtu wa kuzungumza naye, badilishana lugha na utamaduni, kisha fuata maelekezo ya DreamChat kuanza.</p>
       </section>
 
       <main className="mx-auto max-w-6xl px-4 py-8">
         <div className="mb-5 text-center">
-          <h2 className="font-display text-2xl font-extrabold">Foreigners</h2>
-          <button onClick={() => setShowSignup(true)} className="mt-4 rounded-full bg-brand px-8 py-3 text-sm font-extrabold text-primary-foreground shadow-lg">JISAJILI</button>
+          <h2 className="font-display text-2xl font-extrabold">Chagua mtu wa kuchat nae</h2>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -132,7 +135,7 @@ function Index() {
         <p className="mt-2 text-sm opacity-80">Jiunge na channel yetu upate maelekezo na fursa mpya kila siku.</p>
         <div className="mt-5 flex flex-wrap justify-center gap-3">
           <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="rounded-full bg-success px-5 py-2.5 text-sm font-bold text-success-foreground">📢 Jiunge na Channel</a>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="rounded-full bg-gold px-5 py-2.5 text-sm font-bold text-gold-foreground">💬 WhatsApp {WHATSAPP_NUMBER}</a>
+          <span className="rounded-full border border-background/20 px-5 py-2.5 text-sm font-semibold opacity-90">WhatsApp: 0743871339</span>
           <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-background/30 px-5 py-2.5 text-sm font-bold">📝 Jisajili</a>
         </div>
         <p className="mt-6 text-xs opacity-60">© {new Date().getFullYear()} DreamChat. Haki zote zimehifadhiwa.</p>

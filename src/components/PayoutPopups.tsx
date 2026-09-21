@@ -57,25 +57,29 @@ const makePayout = (): Payout => {
 
 const playToastSound = () => {
   try {
-    const AudioContextClass =
-      window.AudioContext ??
-      (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-    if (!AudioContextClass) return;
-    const ctx = new AudioContextClass();
-    const oscillator = ctx.createOscillator();
-    const gain = ctx.createGain();
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(880, ctx.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.12);
-    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
-    oscillator.connect(gain);
-    gain.connect(ctx.destination);
-    oscillator.start();
-    oscillator.stop(ctx.currentTime + 0.18);
+    const audio = new Audio("/notification.wav");
+    audio.volume = 1;
+    audio.currentTime = 0;
+    void audio.play();
+    if (navigator.vibrate) navigator.vibrate([60, 40, 90]);
   } catch {
-    // Browsers can block audio until the user has interacted with the page.
+    // Mobile browsers may require a prior user gesture before audio playback.
+  }
+};
+
+const unlockNotificationSound = () => {
+  try {
+    const audio = new Audio("/notification.wav");
+    audio.volume = 0;
+    const promise = audio.play();
+    if (promise) {
+      promise.then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }).catch(() => {});
+    }
+  } catch {
+    // Ignore browsers that block autoplay.
   }
 };
 
@@ -84,6 +88,9 @@ export default function PayoutPopups() {
 
 
   useEffect(() => {
+    window.addEventListener("pointerdown", unlockNotificationSound, { once: true });
+    window.addEventListener("touchstart", unlockNotificationSound, { once: true, passive: true });
+
     let hideTimer: ReturnType<typeof setTimeout>;
     let nextTimer: ReturnType<typeof setTimeout>;
 
@@ -98,6 +105,8 @@ export default function PayoutPopups() {
 
     const start = setTimeout(cycle, 2500);
     return () => {
+      window.removeEventListener("pointerdown", unlockNotificationSound);
+      window.removeEventListener("touchstart", unlockNotificationSound);
       clearTimeout(start);
       clearTimeout(hideTimer);
       clearTimeout(nextTimer);
