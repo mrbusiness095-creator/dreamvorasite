@@ -61,10 +61,9 @@ export const usdFor = (minutes: number) => tzsFor(minutes) / 2500;
 export const findPerson = (name: string) =>
   people.find((p) => p.name.toLowerCase() === name.toLowerCase());
 
-export const REGISTER_URL = "https://kozenasite.site/register?ref=Ricious";
-export const WHATSAPP_NUMBER = "0612820109";
-export const WHATSAPP_URL = "https://wa.me/255612820109";
+export const REGISTER_URL = "https://moxeraagencies.com/register?ref=Mtukazi";
+export const WHATSAPP_NUMBER = "0743871339";
+export const WHATSAPP_URL = "https://wa.me/255743871339?text=Nielekeze%20kuhusu%20DreamChat";
 export const CHANNEL_URL =
-  "https://chat.whatsapp.com/HJR16xnRf53J54yvIrIJwA?s=cl&p=a&ilr=4";
-
+  "https://chat.whatsapp.com/HJR16xnRf53J54yvIrIJwA?s=cl&p=a&mlu=4&ilr=4";
 export const fmtTZS = (n: number) => n.toLocaleString("en-US");

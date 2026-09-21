@@ -55,8 +55,33 @@ const makePayout = (): Payout => {
   };
 };
 
+const playToastSound = () => {
+  try {
+    const AudioContextClass =
+      window.AudioContext ??
+      (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(880, ctx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + 0.18);
+  } catch {
+    // Browsers can block audio until the user has interacted with the page.
+  }
+};
+
 export default function PayoutPopups() {
   const [item, setItem] = useState<Payout | null>(null);
+
 
   useEffect(() => {
     let hideTimer: ReturnType<typeof setTimeout>;
@@ -64,6 +89,7 @@ export default function PayoutPopups() {
 
     const cycle = () => {
       setItem(makePayout());
+      playToastSound();
       hideTimer = setTimeout(() => {
         setItem(null);
         nextTimer = setTimeout(cycle, 4000 + Math.random() * 5000);
